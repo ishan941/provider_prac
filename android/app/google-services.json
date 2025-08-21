@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "823610565886",
+    "project_id": "flutterprov",
+    "storage_bucket": "flutterprov.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823610565886:android:3089d7481fa35783b631af",
+        "android_client_info": {
+          "package_name": "com.prov.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbeAR1q0XP_e3A2TCMOpA38f8MM0lN2P0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

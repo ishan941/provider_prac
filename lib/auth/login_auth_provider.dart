@@ -2,38 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:prov/enum.dart';
 
 class LoginAuthProvider with ChangeNotifier {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  StatusUtils _statusUtils = StatusUtils.idle;
+  final Auth _auth = Auth();
 
-  // Demo credentials
-  final String _demoEmail = "ishan";
-  final String _demoPassword = "1234";
+  TextEditingController get emailController => _emailController;
+  TextEditingController get passwordController => _passwordController;
+  StatusUtils get getStatus => _statusUtils;
+  Auth get getAuth => _auth;
 
-  StatusUtils status = StatusUtils.idle;
-  String? errorMessage;
+  String defEmail = "ishan";
+  String password = '123';
+  String errorMessage = '';
 
-  Future<void> login() async {
-    status = StatusUtils.loading;
+  void disposeControllers() {
+    _passwordController.dispose();
+    _emailController.dispose();
+  }
+
+  void login() async {
+    _statusUtils = StatusUtils.loading;
     notifyListeners();
+
     try {
-      await Future.delayed(Duration(seconds: 1));
-      if (emailController.text == _demoEmail &&
-          passwordController.text == _demoPassword) {
-        status = StatusUtils.success;
-        errorMessage = null;
+      await Future.delayed(Duration(seconds: 2));
+      if (emailController.text.trim() == defEmail &&
+          passwordController.text.trim() == password) {
+        _statusUtils = StatusUtils.success;
+
+        errorMessage = '';
       } else {
-        status = StatusUtils.error;
-        errorMessage = "Invalid Email or Password";
+        _statusUtils = StatusUtils.error;
+        errorMessage = 'Invalid email or password';
       }
     } catch (e) {
-      errorMessage = "Error: ${e.toString()}";
+      errorMessage = 'An error occurred';
     }
     notifyListeners();
   }
 
   void reset() {
-    status = StatusUtils.idle;
-    errorMessage = null;
+    _statusUtils = StatusUtils.idle;
+
     notifyListeners();
   }
+}
+
+class Auth {
+  String? email;
+  String? password;
+  String? phone;
+  String? name;
+  Auth({this.email, this.password, this.phone, this.name});
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:prov/auth/login_auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:prov/login/login_provider.dart';
 import 'package:prov/login/signup_page.dart';
@@ -79,6 +80,11 @@ class HomePage extends StatelessWidget {
                   },
                   child: const Text("Go to Signup"),
                 ),
+                Consumer<LoginAuthProvider>(
+                  builder: (context, value, child) {
+                    return Text(value.emailController.text);
+                  },
+                )
               ],
             ],
           ),

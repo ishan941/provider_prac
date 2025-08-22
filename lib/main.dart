@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:prov/auth/login_auth.dart';
+import 'package:prov/auth/login_auth_provider.dart';
 import 'package:prov/counter_provider.dart';
 import 'package:prov/firebase_options.dart';
 import 'package:prov/login/login_page.dart';
 import 'package:prov/login/login_provider.dart';
+import 'package:prov/login/signup_page.dart';
 import 'package:prov/login/signup_provider.dart';
 import 'package:prov/task_app/tak_app_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +21,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => TaskAppProvider()),
     ChangeNotifierProvider(create: (_) => LoginProvider()),
     ChangeNotifierProvider(create: (_) => SignupProvider()),
+    ChangeNotifierProvider(create: (_) => LoginAuthProvider()),
   ], child: const MyApp()));
 }
 
@@ -26,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const LoginPage(),
+      home: const LoginAuth(),
     );
   }
 }

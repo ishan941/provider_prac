@@ -12,50 +12,53 @@ class SignupPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text("Simple Signup"),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Consumer<SignupProvider>(
-            builder: (context, provider, _) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(labelText: "Email"),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Consumer<SignupProvider>(
+          builder: (context, provider, _) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(labelText: "Password"),
-                  obscureText: true,
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  labelText: "Password",
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                provider.isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: () async {
-                          final msg = await provider.signUp(
-                            emailController.text.trim(),
-                            passwordController.text.trim(),
-                          );
+                obscureText: true,
+              ),
+              const SizedBox(height: 30),
+              provider.isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: () async {
+                        final result = await provider.signUp(
+                          emailController.text,
+                          passwordController.text,
+                        );
 
-                          if (msg == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("Signup successful!")),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(msg)),
-                            );
-                          }
-                        },
-                        child: const Text("Sign Up"),
-                      ),
-              ],
-            ),
+                        if (result == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Signup Success!")),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Error: $result")),
+                          );
+                        }
+                      },
+                      child: const Text("Sign Up"),
+                    ),
+            ],
           ),
         ),
       ),

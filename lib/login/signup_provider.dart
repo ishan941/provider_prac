@@ -20,10 +20,10 @@ class SignupProvider with ChangeNotifier {
       _isLoading = false;
       notifyListeners();
       return null; // success
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       _isLoading = false;
       notifyListeners();
-      return e.message; // return error message
+      return e.toString();
     }
   }
 }

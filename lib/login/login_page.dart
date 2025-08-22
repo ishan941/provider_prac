@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prov/enum.dart';
 import 'package:prov/login/login_provider.dart';
+import 'package:prov/home_page.dart';
+import 'package:prov/login/signup_page.dart';
 import 'package:prov/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
 
@@ -49,8 +51,10 @@ class _LoginPageState extends State<LoginPage> {
                   behavior: SnackBarBehavior.floating,
                 ),
               );
-              // Example navigation
-              // Navigator.pushReplacementNamed(context, "/home");
+
+              // Navigate to home page after successful login
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
               loginProvider.reset();
             });
           }
@@ -77,7 +81,18 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       loginProvider.login();
                     },
-                    child: const Text("Submit"),
+                    child: const Text("Login"),
+                  ),
+                  const SizedBox(height: 10),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignupPage()),
+                      );
+                    },
+                    child: const Text("Don't have an account? Sign Up"),
                   ),
                 ],
               ),

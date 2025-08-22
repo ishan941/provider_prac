@@ -1,41 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prov/enum.dart';
 
 class LoginProvider with ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  final String _email = "ishan";
-  final String _password = "1234";
 
   StatusUtils status = StatusUtils.idle;
   String? errorMessage;
 
-  /// Simulate login
+  /// Firebase login
   Future<void> login() async {
     // Set loading state
     status = StatusUtils.loading;
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 1));
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-    // Check credentials
-    if (emailController.text == _email &&
-        passwordController.text == _password) {
       status = StatusUtils.success;
       errorMessage = null;
-    } else {
+    } catch (e) {
       status = StatusUtils.error;
-      errorMessage = "Invalid email or password";
+      errorMessage = "Login failed: ${e.toString()}";
     }
 
     notifyListeners();
   }
 
+  /// Get current user
+  User? get currentUser => _auth.currentUser;
+
+  /// Check if user is logged in
+  bool get isLoggedIn => _auth.currentUser != null;
+
   /// Reset state (optional helper)
   void reset() {
     status = StatusUtils.idle;
     errorMessage = null;
+    notifyListeners();
+  }
+
+  /// Logout
+  Future<void> logout() async {
+    await _auth.signOut();
     emailController.clear();
     passwordController.clear();
     notifyListeners();

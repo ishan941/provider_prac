@@ -30,12 +30,10 @@ class LoginAuthProvider with ChangeNotifier {
       if (emailController.text.trim() == defEmail &&
           passwordController.text.trim() == password) {
         _statusUtils = StatusUtils.success;
-
         errorMessage = '';
       } else {
         _statusUtils = StatusUtils.error;
         errorMessage = 'Invalid email or password';
-
         passwordController.clear();
       }
     } catch (e) {
@@ -45,8 +43,15 @@ class LoginAuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    disposeControllers();
+    super.dispose();
+  }
+
   void reset() {
     _statusUtils = StatusUtils.idle;
+    _emailController.text = "Helo";
 
     notifyListeners();
   }

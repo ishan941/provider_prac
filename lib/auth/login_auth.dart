@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prov/auth/auth_home.dart';
+import 'package:prov/auth/dispose_demo.dart';
 import 'package:prov/auth/login_auth_provider.dart';
 import 'package:prov/enum.dart';
 import 'package:prov/home_page.dart';
@@ -39,7 +41,7 @@ class LoginAuth extends StatelessWidget {
                     backgroundColor: Colors.green,
                   ));
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                      MaterialPageRoute(builder: (context) => DemoPage()));
                   loginProvider.reset();
                 });
               }

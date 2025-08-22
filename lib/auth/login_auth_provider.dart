@@ -35,9 +35,12 @@ class LoginAuthProvider with ChangeNotifier {
       } else {
         _statusUtils = StatusUtils.error;
         errorMessage = 'Invalid email or password';
+
+        passwordController.clear();
       }
     } catch (e) {
       errorMessage = 'An error occurred';
+      passwordController.clear();
     }
     notifyListeners();
   }

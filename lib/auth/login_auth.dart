@@ -28,8 +28,8 @@ class LoginAuth extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(loginProvider.errorMessage)),
                   );
+                  loginProvider.reset();
                 });
-                loginProvider.reset();
               }
               if (loginProvider.getStatus == StatusUtils.success) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,8 +40,8 @@ class LoginAuth extends StatelessWidget {
                   ));
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HomePage()));
+                  loginProvider.reset();
                 });
-                loginProvider.reset();
               }
               return Column(
                 children: [

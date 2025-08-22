@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:prov/auth/dispose_demo.dart';
 import 'package:prov/auth/login_auth.dart';
 import 'package:prov/auth/login_auth_provider.dart';
 import 'package:prov/counter_provider.dart';
@@ -22,6 +23,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => LoginProvider()),
     ChangeNotifierProvider(create: (_) => SignupProvider()),
     ChangeNotifierProvider(create: (_) => LoginAuthProvider()),
+    ChangeNotifierProvider(create: (_) => DemoProvider()),
   ], child: const MyApp()));
 }
 
